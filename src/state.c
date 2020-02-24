@@ -6,7 +6,7 @@
 /*   By: cacharle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 09:58:01 by cacharle          #+#    #+#             */
-/*   Updated: 2020/02/24 15:26:58 by cacharle         ###   ########.fr       */
+/*   Updated: 2020/02/24 16:12:34 by cacharle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static void st_state_init_palette(t_state *state)
 	i = -1;
 	while (++i < PALETTE_SIZE)
 	{
+		/* tmp.rgb.r = (int)sqrt((double)i / PALETTE_SIZE);//tmp; */
 		state->palette[i] = tmp;
 		tmp.rgb.r += step_r;
 		tmp.rgb.g += step_g;
@@ -46,14 +47,16 @@ static int	st_state_dispatch_func(t_state *state, char *fractal_name)
 	else if (ft_strcmp(fractal_name, "julia") == 0)
 	{
 		state->func = &julia;
-		state->julia_const.r = 0.0;
-		state->julia_const.i = 0.0;
+		state->c.r = 0.0;
+		state->c.i = 0.0;
 		return (0);
 	}
+	else if (ft_strcmp(fractal_name, "tricorn") == 0)
+		state->func = &tricorn;
 	else
 		return (-1);
-	state->julia_const.r = NAN;
-	state->julia_const.i = NAN;
+	state->c.r = NAN;
+	state->c.i = NAN;
 	return (0);
 }
 

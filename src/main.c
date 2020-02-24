@@ -6,7 +6,7 @@
 /*   By: cacharle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 09:27:44 by cacharle          #+#    #+#             */
-/*   Updated: 2020/02/24 15:28:40 by cacharle         ###   ########.fr       */
+/*   Updated: 2020/02/24 16:10:23 by cacharle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	main(int argc, char **argv)
 
 	if (argc != 2 || state_init(&state, argv[1]) < 0)
 	{
-		ft_putstr("mandelbrot\njulia\n");
+		ft_putstr("mandelbrot\njulia\ntricorn\n");
 		return (0);
 	}
 	mlx_hook(state.window_ptr, 17, 0, event_quit, (void*)&state);

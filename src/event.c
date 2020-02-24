@@ -6,7 +6,7 @@
 /*   By: cacharle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 09:52:35 by cacharle          #+#    #+#             */
-/*   Updated: 2020/02/24 15:38:06 by cacharle         ###   ########.fr       */
+/*   Updated: 2020/02/24 16:06:49 by cacharle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	event_mouse(int button, int x, int y, t_state *state)
 
 int	event_mouse_motion(int x, int y, t_state *state)
 {
-	if (state->julia_const.r == NAN)
+	if (state->c.r == NAN)
 		return (0);
 	if (x < 0)
 		x = 0;
@@ -78,8 +78,8 @@ int	event_mouse_motion(int x, int y, t_state *state)
 		y = 0;
 	if (y > WINDOW_HEIGHT - 1)
 		y = WINDOW_HEIGHT - 1;
-	state->julia_const.r = ((double)x / (double)WINDOW_WIDTH)  * 4.0 - 2.0;
-	state->julia_const.i = ((double)y / (double)WINDOW_HEIGHT) * 4.0 - 2.0;
+	state->c.r = ((double)x / (double)WINDOW_WIDTH)  * 4.0 - 2.0;
+	state->c.i = ((double)y / (double)WINDOW_HEIGHT) * 4.0 - 2.0;
 	state->updated = false;
 	return (0);
 }

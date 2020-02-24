@@ -6,7 +6,7 @@
 #    By: cacharle <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/24 09:19:49 by cacharle          #+#    #+#              #
-#    Updated: 2020/02/24 15:22:40 by cacharle         ###   ########.fr        #
+#    Updated: 2020/02/24 16:09:04 by cacharle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,8 @@ SRC_FILES = main.c \
 			state.c \
 			helper.c \
 			fractals/mandelbrot.c \
-			fractals/julia.c
+			fractals/julia.c \
+			fractals/tricorn.c
 
 SRC = $(addprefix $(SRC_DIR)/,$(SRC_FILES))
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)

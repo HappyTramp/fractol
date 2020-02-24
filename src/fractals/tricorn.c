@@ -1,41 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   julia.c                                            :+:      :+:    :+:   */
+/*   tricorn.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cacharle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/24 15:17:38 by cacharle          #+#    #+#             */
-/*   Updated: 2020/02/24 16:06:57 by cacharle         ###   ########.fr       */
+/*   Created: 2020/02/24 16:00:46 by cacharle          #+#    #+#             */
+/*   Updated: 2020/02/24 16:12:16 by cacharle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-#define JULIA_MAX_ITERATION 20
-#define JULIA_ESCAPE_RADIUS_SQUARED 100
+#define TRICORN_MAX_ITERATION 20
+#define TRICORN_ESCAPE_RADIUS_SQUARED 100
 
-int	julia(t_state *state, t_complex z)
+int	tricorn(t_state *state, t_complex z)
 {
 	int		n;
 	double	zr;
 	double	zi;
 	double	zr_square;
 	double	zi_square;
+	double	tmp;
 	
+	(void)state;
 	zr = z.r;
 	zi = z.i;
 	n = -1;
-	while (++n < JULIA_MAX_ITERATION)
+	while (++n < TRICORN_MAX_ITERATION)
 	{
 		zi_square = zi * zi;
 		zr_square = zr * zr;
-		if (zr_square + zi_square > JULIA_ESCAPE_RADIUS_SQUARED)
+		if (zr_square + zi_square > TRICORN_ESCAPE_RADIUS_SQUARED)
 			break;
-		zi = 2.0 * zr * zi;
-		zr = zr_square - zi_square;
-		zi += state->c.i;
-		zr += state->c.r;
+		tmp = zr_square - zi_square + z.r;
+		zi = -2.0 * zr * zi + z.i;
+		zr = tmp;
 	}
 	return (n);
 }
