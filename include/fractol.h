@@ -6,7 +6,7 @@
 /*   By: cacharle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 09:28:16 by cacharle          #+#    #+#             */
-/*   Updated: 2020/02/24 16:09:21 by cacharle         ###   ########.fr       */
+/*   Updated: 2020/02/24 16:18:44 by cacharle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ int					event_mouse_motion(int x, int y, t_state *state);
 int					mandelbrot(t_state *state, t_complex z);
 int					julia(t_state *state, t_complex z);
 int					tricorn(t_state *state, t_complex z);
+int					burningship(t_state *state, t_complex z);
 
 /*
 ** helper.c

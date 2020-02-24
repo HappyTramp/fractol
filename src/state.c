@@ -6,7 +6,7 @@
 /*   By: cacharle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 09:58:01 by cacharle          #+#    #+#             */
-/*   Updated: 2020/02/24 16:12:34 by cacharle         ###   ########.fr       */
+/*   Updated: 2020/02/24 16:18:25 by cacharle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ static int	st_state_dispatch_func(t_state *state, char *fractal_name)
 	}
 	else if (ft_strcmp(fractal_name, "tricorn") == 0)
 		state->func = &tricorn;
+	else if (ft_strcmp(fractal_name, "burningship") == 0)
+		state->func = &burningship;
 	else
 		return (-1);
 	state->c.r = NAN;
