@@ -6,7 +6,7 @@
 /*   By: cacharle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 09:28:16 by cacharle          #+#    #+#             */
-/*   Updated: 2020/02/24 13:18:04 by cacharle         ###   ########.fr       */
+/*   Updated: 2020/02/24 13:59:01 by cacharle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,13 @@
 # define WINDOW_HEIGHT_DOUBLE 480.0
 
 # define MLXK_ESC 53
+# define MLXK_UP 126
+# define MLXK_DOWN 125
 # define MLXK_LEFT 123
 # define MLXK_RIGHT 124
+
+# define MLX_MOUSE_SCROLL_UP 5
+# define MLX_MOUSE_SCROLL_DOWN 4
 
 # define MLX_LITTLE_ENDIAN 0
 # define MLX_BIG_ENDIAN 1
@@ -101,6 +106,7 @@ void				render_update_window_complex(t_state *state);
 
 int					event_quit(t_state *state);
 int					event_keydown(int key, t_state *state);
+int					event_mouse(int button, int x, int y, t_state *state);
 
 /*
 ** fractals/

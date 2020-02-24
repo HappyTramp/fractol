@@ -6,7 +6,7 @@
 /*   By: cacharle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 09:27:44 by cacharle          #+#    #+#             */
-/*   Updated: 2020/02/24 12:01:02 by cacharle         ###   ########.fr       */
+/*   Updated: 2020/02/24 13:55:02 by cacharle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	main(int argc, char **argv)
 		return (1);
 	mlx_hook(state.window_ptr, 17, 0, event_quit, (void*)&state);
 	mlx_hook(state.window_ptr, 2, 2, event_keydown, (void*)&state);
+	mlx_mouse_hook(state.window_ptr, event_mouse, (void*)&state);
 	mlx_loop_hook(state.mlx_ptr, render_update, (void*)&state);
 	mlx_loop(state.mlx_ptr);
 	return (0);

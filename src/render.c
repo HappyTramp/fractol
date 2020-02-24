@@ -6,7 +6,7 @@
 /*   By: cacharle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 09:54:59 by cacharle          #+#    #+#             */
-/*   Updated: 2020/02/24 13:46:44 by cacharle         ###   ########.fr       */
+/*   Updated: 2020/02/24 14:01:43 by cacharle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ static void	st_render_fractal(t_state *state)
 		{
 			((t_color*)state->window.data)[offset] =
 				state->palette[state->func(state->window_complex[offset])];
-			/* printf("%06x\n", ((t_color*)state->window.data)[offset].hexcode); */
-			/* printf("%d\n", state->func(state->window_complex[offset])); */
 			offset++;
 		}
 	}
@@ -62,14 +60,10 @@ void		render_update_window_complex(t_state *state)
 		while (++j < WINDOW_WIDTH)
 		{
 			state->window_complex[offset].r =
-				((double)j / (double)WINDOW_WIDTH)  * state->plane.r - (state->plane.r / 2.0);
+				((double)j / (double)WINDOW_WIDTH)  * state->plane.r - (state->plane.r / 2.0) + state->center.r;
 			state->window_complex[offset].i =
-				((double)i / (double)WINDOW_HEIGHT) * state->plane.i - (state->plane.i / 2.0);
+				((double)i / (double)WINDOW_HEIGHT) * state->plane.i - (state->plane.i / 2.0) + state->center.i;
 			offset++;
-			/* printf("%f %f\n", state->window_complex[i * WINDOW_WIDTH + j].a, state->window_complex[i * WINDOW_WIDTH + j].b); */
-				/* ((double)i / (double)WINDOW_HEIGHT) * state->plane.b - (state->plane.b / 2.0); */
-			/* printf("%f\n", (double)i / (double)WINDOW_HEIGHT * state->plane.b- (state->plane.b / 2.0)); */
-			/* h_offset_to_complex(state, state->window_complex + i, i);  // helper bloat? */
 		}
 	}
 }
