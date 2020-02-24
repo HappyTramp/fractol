@@ -6,7 +6,7 @@
 /*   By: cacharle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 09:28:16 by cacharle          #+#    #+#             */
-/*   Updated: 2020/02/24 10:43:38 by cacharle         ###   ########.fr       */
+/*   Updated: 2020/02/24 13:18:04 by cacharle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,25 @@
 # include <stdlib.h>
 # include <stdbool.h>
 # include <fcntl.h>
+# include <math.h>
 # include "mlx.h"
 # include "libft.h"
+# include "libft_math.h"
 
 # define WINDOW_TITLE "fractol"
 # define WINDOW_WIDTH 640
 # define WINDOW_HEIGHT 480
+# define WINDOW_WIDTH_DOUBLE 640.0
+# define WINDOW_HEIGHT_DOUBLE 480.0
 
 # define MLXK_ESC 53
-# define MLXK_W 13
-# define MLXK_A 0
-# define MLXK_S 1
-# define MLXK_D 2
 # define MLXK_LEFT 123
 # define MLXK_RIGHT 124
 
 # define MLX_LITTLE_ENDIAN 0
 # define MLX_BIG_ENDIAN 1
 
-# define PALETTE_SIZE 2048
+# define PALETTE_SIZE 21
 
 typedef union
 {
@@ -62,8 +62,8 @@ typedef struct
 
 typedef struct
 {
-	double			a;
-	double			b;
+	double			r;
+	double			i;
 }					t_complex;
 
 typedef int			(*t_func_fractal)(t_complex z);
@@ -77,26 +77,41 @@ typedef struct
 	t_complex		window_complex[WINDOW_HEIGHT * WINDOW_WIDTH];
 	t_color			palette[PALETTE_SIZE];
 	t_func_fractal	func;
+	t_complex		center;
+	t_complex		plane;
 }					t_state;
 
 /*
 ** state.c
 */
 
-int	state_init(t_state *state, char *fractal_name);
-int	state_destroy(t_state *state);
+int					state_init(t_state *state, char *fractal_name);
+int					state_destroy(t_state *state);
 
 /*
 ** render.c
 */
 
-int	render_update(t_state *state);
+int					render_update(t_state *state);
+void				render_update_window_complex(t_state *state);
 
 /*
 ** event.c
 */
 
-int	event_quit(t_state *state);
-int	event_keydown(int key, t_state *state);
+int					event_quit(t_state *state);
+int					event_keydown(int key, t_state *state);
+
+/*
+** fractals/
+*/
+
+int					mandelbrot(t_complex z);
+
+/*
+** helper.c
+*/
+
+void				h_offset_to_complex(t_state *state, t_complex *z, int offset);
 
 #endif
