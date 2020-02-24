@@ -6,7 +6,7 @@
 #    By: cacharle <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/24 09:19:49 by cacharle          #+#    #+#              #
-#    Updated: 2020/02/24 09:32:45 by cacharle         ###   ########.fr        #
+#    Updated: 2020/02/24 09:57:58 by cacharle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,10 @@ LDFLAGS = -L$(LIBFT_DIR) -lft \
 		  -framework OpenGL -framework AppKit -lm
 
 NAME = fractol
-SRC_FILES = main.c
+SRC_FILES = main.c \
+			render.c \
+			event.c \
+			state.c
 
 SRC = $(addprefix $(SRC_DIR)/,$(SRC_FILES))
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)

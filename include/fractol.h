@@ -6,14 +6,97 @@
 /*   By: cacharle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 09:28:16 by cacharle          #+#    #+#             */
-/*   Updated: 2020/02/24 09:31:55 by cacharle         ###   ########.fr       */
+/*   Updated: 2020/02/24 10:43:38 by cacharle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdbool.h>
+# include <fcntl.h>
 # include "mlx.h"
 # include "libft.h"
+
+# define WINDOW_TITLE "fractol"
+# define WINDOW_WIDTH 640
+# define WINDOW_HEIGHT 480
+
+# define MLXK_ESC 53
+# define MLXK_W 13
+# define MLXK_A 0
+# define MLXK_S 1
+# define MLXK_D 2
+# define MLXK_LEFT 123
+# define MLXK_RIGHT 124
+
+# define MLX_LITTLE_ENDIAN 0
+# define MLX_BIG_ENDIAN 1
+
+# define PALETTE_SIZE 2048
+
+typedef union
+{
+	unsigned int	hexcode;
+	struct
+	{
+		uint8_t		b;
+		uint8_t		g;
+		uint8_t		r;
+		uint8_t		alpha;
+	}				rgb;
+}					t_color;
+
+typedef struct
+{
+	int				width;
+	int				height;
+	void			*id;
+	char			*data;
+	int				depth;
+	int				size_line;
+	int				endian;
+}					t_image;
+
+typedef struct
+{
+	double			a;
+	double			b;
+}					t_complex;
+
+typedef int			(*t_func_fractal)(t_complex z);
+
+typedef struct
+{
+	bool			running;
+	void			*mlx_ptr;
+	void			*window_ptr;
+	t_image			window;
+	t_complex		window_complex[WINDOW_HEIGHT * WINDOW_WIDTH];
+	t_color			palette[PALETTE_SIZE];
+	t_func_fractal	func;
+}					t_state;
+
+/*
+** state.c
+*/
+
+int	state_init(t_state *state, char *fractal_name);
+int	state_destroy(t_state *state);
+
+/*
+** render.c
+*/
+
+int	render_update(t_state *state);
+
+/*
+** event.c
+*/
+
+int	event_quit(t_state *state);
+int	event_keydown(int key, t_state *state);
 
 #endif

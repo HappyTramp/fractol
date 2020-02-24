@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   event.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cacharle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/24 09:27:44 by cacharle          #+#    #+#             */
-/*   Updated: 2020/02/24 10:17:11 by cacharle         ###   ########.fr       */
+/*   Created: 2020/02/24 09:52:35 by cacharle          #+#    #+#             */
+/*   Updated: 2020/02/24 10:10:29 by cacharle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int	main(int argc, char **argv)
+int	event_quit(t_state *state)
 {
-	t_state	state;
+	state->running = false;
+	return (0);
+}
 
-	if (argc != 2)
-	{
-		ft_putstr("mandelbrot\njulia\n");
-		return (0);
-	}
-	if (state_init(&state, argv[1]) < 0)
-		return (1);
-	mlx_hook(state.window_ptr, 17, 0, event_quit, (void*)&state);
-	mlx_hook(state.window_ptr, 2, 2, event_keydown, (void*)&state);
-	mlx_loop_hook(state.mlx_ptr, render_update, (void*)&state);
-	mlx_loop(state.mlx_ptr);
+int	event_keydown(int key, t_state *state)
+{
+	if (key == MLXK_ESC)
+		state->running = false;
 	return (0);
 }
