@@ -6,7 +6,7 @@
 /*   By: cacharle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 09:54:59 by cacharle          #+#    #+#             */
-/*   Updated: 2020/02/24 14:01:43 by cacharle         ###   ########.fr       */
+/*   Updated: 2020/02/24 15:20:39 by cacharle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,19 @@ static void	st_render_fractal(t_state *state)
 	int	i;
 	int	j;
 	t_color	color;
+	t_complex	z;
 
 	color.hexcode = 0xffffff;
 	offset = 0;
 	i = -1;
-	while (++i < state->window.height)
+	while (++i < WINDOW_HEIGHT)
 	{
 		j = -1;
-		while (++j < state->window.width)
+		while (++j < WINDOW_WIDTH)
 		{
-			((t_color*)state->window.data)[offset] =
-				state->palette[state->func(state->window_complex[offset])];
+			z.r = ((double)j / (double)WINDOW_WIDTH)  * state->plane.r - (state->plane.r / 2.0) + state->center.r;
+			z.i = ((double)i / (double)WINDOW_HEIGHT) * state->plane.i - (state->plane.i / 2.0) + state->center.i;
+			((t_color*)state->window.data)[offset] = state->palette[state->func(state, z)];
 			offset++;
 		}
 	}
@@ -41,29 +43,10 @@ int			render_update(t_state *state)
 		state_destroy(state);
 		exit(EXIT_SUCCESS);
 	}
+	if (state->updated)
+		return (0);
 	st_render_fractal(state);
 	mlx_put_image_to_window(state->mlx_ptr, state->window_ptr, state->window.id, 0, 0);
+	state->updated = true;
 	return (0);
-}
-
-void		render_update_window_complex(t_state *state)
-{
-	int	i;
-	int	j;
-	int	offset;
-
-	i = -1;
-	offset = 0;
-	while (++i < WINDOW_HEIGHT)
-	{
-		j = -1;
-		while (++j < WINDOW_WIDTH)
-		{
-			state->window_complex[offset].r =
-				((double)j / (double)WINDOW_WIDTH)  * state->plane.r - (state->plane.r / 2.0) + state->center.r;
-			state->window_complex[offset].i =
-				((double)i / (double)WINDOW_HEIGHT) * state->plane.i - (state->plane.i / 2.0) + state->center.i;
-			offset++;
-		}
-	}
 }

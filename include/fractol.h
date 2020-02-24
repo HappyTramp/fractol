@@ -6,7 +6,7 @@
 /*   By: cacharle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 09:28:16 by cacharle          #+#    #+#             */
-/*   Updated: 2020/02/24 13:59:01 by cacharle         ###   ########.fr       */
+/*   Updated: 2020/02/24 15:29:50 by cacharle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,19 +71,22 @@ typedef struct
 	double			i;
 }					t_complex;
 
-typedef int			(*t_func_fractal)(t_complex z);
+struct				s_state;
 
-typedef struct
+typedef int			(*t_func_fractal)(struct s_state *state, t_complex z);
+
+typedef struct		s_state
 {
 	bool			running;
+	bool			updated;
 	void			*mlx_ptr;
 	void			*window_ptr;
 	t_image			window;
-	t_complex		window_complex[WINDOW_HEIGHT * WINDOW_WIDTH];
 	t_color			palette[PALETTE_SIZE];
 	t_func_fractal	func;
 	t_complex		center;
 	t_complex		plane;
+	t_complex		julia_const;
 }					t_state;
 
 /*
@@ -98,7 +101,6 @@ int					state_destroy(t_state *state);
 */
 
 int					render_update(t_state *state);
-void				render_update_window_complex(t_state *state);
 
 /*
 ** event.c
@@ -107,12 +109,14 @@ void				render_update_window_complex(t_state *state);
 int					event_quit(t_state *state);
 int					event_keydown(int key, t_state *state);
 int					event_mouse(int button, int x, int y, t_state *state);
+int					event_mouse_motion(int x, int y, t_state *state);
 
 /*
 ** fractals/
 */
 
-int					mandelbrot(t_complex z);
+int					mandelbrot(t_state *state, t_complex z);
+int					julia(t_state *state, t_complex z);
 
 /*
 ** helper.c
