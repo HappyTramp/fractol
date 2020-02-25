@@ -6,11 +6,16 @@
 /*   By: cacharle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 09:54:59 by cacharle          #+#    #+#             */
-/*   Updated: 2020/02/24 15:20:39 by cacharle         ###   ########.fr       */
+/*   Updated: 2020/02/25 08:42:34 by cacharle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+
+/* static void	*st_render_routine(t_state *state) */
+/* { */
+/* 	return (NULL); */
+/* } */
 
 static void	st_render_fractal(t_state *state)
 {
@@ -19,6 +24,7 @@ static void	st_render_fractal(t_state *state)
 	int	j;
 	t_color	color;
 	t_complex	z;
+	/* pthread_t	threads[WINDOW_HEIGHT */
 
 	color.hexcode = 0xffffff;
 	offset = 0;
@@ -30,7 +36,7 @@ static void	st_render_fractal(t_state *state)
 		{
 			z.r = ((double)j / (double)WINDOW_WIDTH)  * state->plane.r - (state->plane.r / 2.0) + state->center.r;
 			z.i = ((double)i / (double)WINDOW_HEIGHT) * state->plane.i - (state->plane.i / 2.0) + state->center.i;
-			((t_color*)state->window.data)[offset] = state->palette[state->func(state, z)];
+			((t_color*)state->window.data)[offset] = state->palette[(int)(((double)state->func(state, z) / (double)state->iterations) * (double)PALETTE_SIZE) % PALETTE_SIZE];
 			offset++;
 		}
 	}

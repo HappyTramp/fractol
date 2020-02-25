@@ -6,7 +6,7 @@
 /*   By: cacharle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 16:00:46 by cacharle          #+#    #+#             */
-/*   Updated: 2020/02/24 16:12:16 by cacharle         ###   ########.fr       */
+/*   Updated: 2020/02/25 07:34:01 by cacharle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	tricorn(t_state *state, t_complex z)
 	zr = z.r;
 	zi = z.i;
 	n = -1;
-	while (++n < TRICORN_MAX_ITERATION)
+	while (++n < state->iterations)
 	{
 		zi_square = zi * zi;
 		zr_square = zr * zr;

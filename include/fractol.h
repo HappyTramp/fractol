@@ -6,7 +6,7 @@
 /*   By: cacharle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 09:28:16 by cacharle          #+#    #+#             */
-/*   Updated: 2020/02/24 16:18:44 by cacharle         ###   ########.fr       */
+/*   Updated: 2020/02/25 08:35:52 by cacharle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,30 @@
 # include "libft_math.h"
 
 # define WINDOW_TITLE "fractol"
-# define WINDOW_WIDTH 640
-# define WINDOW_HEIGHT 480
-# define WINDOW_WIDTH_DOUBLE 640.0
-# define WINDOW_HEIGHT_DOUBLE 480.0
+
+# define FRACTOL_RESOLUTION_MEDIUM
+
+# ifdef FRACTOL_RESOLUTION_HIGH
+#  define WINDOW_WIDTH 1600
+#  define WINDOW_HEIGHT 1200
+# elif defined(FRACTOL_RESOLUTION_MEDIUM)
+#  define WINDOW_WIDTH 1024
+#  define WINDOW_HEIGHT 768
+# else
+#  define FRACTOL_RESOLUTION_LOW
+#  define WINDOW_WIDTH 800
+#  define WINDOW_HEIGHT 600
+# endif
+// # define WINDOW_WIDTH_DOUBLE 640.0
+// # define WINDOW_HEIGHT_DOUBLE 480.0
 
 # define MLXK_ESC 53
 # define MLXK_UP 126
 # define MLXK_DOWN 125
 # define MLXK_LEFT 123
 # define MLXK_RIGHT 124
+# define MLXK_PLUS 24
+# define MLXK_MINUS 27
 
 # define MLX_MOUSE_SCROLL_UP 5
 # define MLX_MOUSE_SCROLL_DOWN 4
@@ -40,7 +54,7 @@
 # define MLX_LITTLE_ENDIAN 0
 # define MLX_BIG_ENDIAN 1
 
-# define PALETTE_SIZE 21
+# define PALETTE_SIZE 1024
 
 typedef union
 {
@@ -87,7 +101,14 @@ typedef struct		s_state
 	t_complex		center;
 	t_complex		plane;
 	t_complex		c;
+	int				iterations;
 }					t_state;
+
+typedef struct
+{
+	t_state			*state;
+	int				offset;
+}					t_render_routine_arg;
 
 /*
 ** state.c

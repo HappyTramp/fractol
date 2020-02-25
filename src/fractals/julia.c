@@ -6,7 +6,7 @@
 /*   By: cacharle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 15:17:38 by cacharle          #+#    #+#             */
-/*   Updated: 2020/02/24 16:06:57 by cacharle         ###   ########.fr       */
+/*   Updated: 2020/02/25 07:33:43 by cacharle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	julia(t_state *state, t_complex z)
 	zr = z.r;
 	zi = z.i;
 	n = -1;
-	while (++n < JULIA_MAX_ITERATION)
+	while (++n < state->iterations)
 	{
 		zi_square = zi * zi;
 		zr_square = zr * zr;

@@ -6,7 +6,7 @@
 /*   By: cacharle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 11:07:41 by cacharle          #+#    #+#             */
-/*   Updated: 2020/02/24 15:25:17 by cacharle         ###   ########.fr       */
+/*   Updated: 2020/02/25 07:33:35 by cacharle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	mandelbrot(t_state *state, t_complex z)
 	zr = z.r;
 	zi = z.i;
 	n = -1;
-	while (++n < MANDEL_MAX_ITERATION)
+	while (++n < state->iterations)
 	{
 		zi_square = zi * zi;
 		zr_square = zr * zr;

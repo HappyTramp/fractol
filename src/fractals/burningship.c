@@ -6,7 +6,7 @@
 /*   By: cacharle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 16:15:49 by cacharle          #+#    #+#             */
-/*   Updated: 2020/02/24 16:19:26 by cacharle         ###   ########.fr       */
+/*   Updated: 2020/02/25 07:33:53 by cacharle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	burningship(t_state *state, t_complex z)
 	zr = z.r;
 	zi = z.i;
 	n = -1;
-	while (++n < BURNING_SHIP_MAX_ITERATION)
+	while (++n < state->iterations)
 	{
 		zi_square = zi * zi;
 		zr_square = zr * zr;
