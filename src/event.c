@@ -6,7 +6,7 @@
 /*   By: cacharle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 09:52:35 by cacharle          #+#    #+#             */
-/*   Updated: 2020/02/25 07:35:38 by cacharle         ###   ########.fr       */
+/*   Updated: 2020/02/25 15:24:31 by cacharle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,17 @@ int	event_keydown(int key, t_state *state)
 	else if (key == MLXK_RIGHT)
 		state->center.r += state->plane.r * MOVE_SPEED;
 	else if (key == MLXK_PLUS)
+	{
 		state->iterations++;
+		state_update_palette(state);
+	}
 	else if (key == MLXK_MINUS)
+	{
 		state->iterations--;
+		if (state->iterations < 1)
+			state->iterations = 1;
+		state_update_palette(state);
+	}
 	else
 		return (0);
 	state->updated = false;

@@ -6,7 +6,7 @@
 /*   By: cacharle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 09:58:01 by cacharle          #+#    #+#             */
-/*   Updated: 2020/02/25 08:42:51 by cacharle         ###   ########.fr       */
+/*   Updated: 2020/02/25 15:34:51 by cacharle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,63 +17,28 @@
 /* #define PALETTE_START 0x000000 */
 /* #define PALETTE_END 0xffffff */
 
-static void st_state_init_palette(t_state *state)
+void state_update_palette(t_state *state)
 {
-	t_color	tmp;
-	int		step_r;
-	int		step_g;
-	int		step_b;
-	int		i;
-	t_color colors[5];
+	int			i;
+	t_color_hsl	hsl;
 
-	colors[0].hexcode = 0x0;
-	colors[1].hexcode = 0xffdf00;
-	/* colors[2].hexcode = 0xffffff; */
-	/* colors[3].hexcode = 0x0000ff; */
-	/* colors[4].hexcode = 0x000088; */
-
-	int	c1 = 0;
-	int	c2 = 1;
-	int block_size = PALETTE_SIZE / 2;
-	i = -1;
-	double colorDelta = 1.0 / (2 - 1);
-	while (++i < PALETTE_SIZE)
+	free(state->palette);
+	if ((state->palette = malloc(sizeof(t_color) * (state->iterations + 1))) == NULL)
 	{
-		double globalRel = (double)i / (PALETTE_SIZE - 1);
-		double localRel = (globalRel - c1 * colorDelta) / colorDelta;
-		if (i % block_size)
-		{
-			c1++;
-			c2++;
-		}
-		int dr = colors[c1].rgb.r - colors[c2].rgb.r;
-		int dg = colors[c1].rgb.g - colors[c2].rgb.g;
-		int db = colors[c1].rgb.b - colors[c2].rgb.b;
-
-		state->palette[i].rgb.r = (int)(colors[c1].rgb.r + localRel * dr);
-		state->palette[i].rgb.g = (int)(colors[c1].rgb.g + localRel * dg);
-		state->palette[i].rgb.b = (int)(colors[c1].rgb.b + localRel * db);
+		state->running = false;
+		return ;
 	}
-
-
-
-
-
-
-
-	/* tmp.hexcode = PALETTE_START; */
-	/* step_r = ft_abs((PALETTE_END >> 16)         - (PALETTE_START >> 16)        ) / PALETTE_SIZE; */
-	/* step_g = ft_abs(((PALETTE_END >> 8) & 0xff) - ((PALETTE_START >> 8) & 0xff)) / PALETTE_SIZE; */
-	/* step_b = ft_abs((PALETTE_END & 0xff)        - (PALETTE_START & 0xff)       ) / PALETTE_SIZE; */
-	/* i = -1; */
-	/* while (++i < PALETTE_SIZE) */
-	/* { */
-	/* 	#<{(| tmp.rgb.r = (int)sqrt((double)i / PALETTE_SIZE);//tmp; |)}># */
-	/* 	state->palette[i] = tmp; */
-	/* 	tmp.rgb.r += step_r; */
-	/* 	tmp.rgb.g += step_g; */
-	/* 	tmp.rgb.b += step_b; */
-	/* } */
+	i = -1;
+	while (++i < state->iterations)
+	{
+		hsl.h = (int)(255.0 * ((double)i / (double)state->iterations));
+		hsl.s = 100;
+		hsl.l = 127;
+		state->palette[i] = color_hsl_to_rgb(hsl);
+	}
+	state->palette[i].hexcode = 0x0;
+	/* for (int i = 0; i < state->iterations; i++) */
+	/* 	printf("%d %d %d\n", state->palette[i].rgb.r, state->palette[i].rgb.g, state->palette[i].rgb.b); */
 }
 
 static int	st_state_dispatch_func(t_state *state, char *fractal_name)
@@ -117,8 +82,9 @@ int	state_init(t_state *state, char *fractal_name)
 	state->center.i = 0.0;
 	state->plane.r = 4.0;
 	state->plane.i = 4.0;
-	state->iterations = 20;
-	st_state_init_palette(state);
+	state->iterations = 30;
+	state->palette = NULL;
+	state_update_palette(state);
 	state->updated = false;
 	return (0);
 }

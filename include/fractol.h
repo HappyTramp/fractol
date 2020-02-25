@@ -6,7 +6,7 @@
 /*   By: cacharle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 09:28:16 by cacharle          #+#    #+#             */
-/*   Updated: 2020/02/25 08:35:52 by cacharle         ###   ########.fr       */
+/*   Updated: 2020/02/25 15:29:33 by cacharle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 # define WINDOW_TITLE "fractol"
 
-# define FRACTOL_RESOLUTION_MEDIUM
+# define FRACTOL_RESOLUTION_LOW
 
 # ifdef FRACTOL_RESOLUTION_HIGH
 #  define WINDOW_WIDTH 1600
@@ -70,6 +70,13 @@ typedef union
 
 typedef struct
 {
+	uint8_t			h;
+	uint8_t			s;
+	uint8_t			l;
+}					t_color_hsl;
+
+typedef struct
+{
 	int				width;
 	int				height;
 	void			*id;
@@ -96,7 +103,7 @@ typedef struct		s_state
 	void			*mlx_ptr;
 	void			*window_ptr;
 	t_image			window;
-	t_color			palette[PALETTE_SIZE];
+	t_color			*palette;
 	t_func_fractal	func;
 	t_complex		center;
 	t_complex		plane;
@@ -116,6 +123,7 @@ typedef struct
 
 int					state_init(t_state *state, char *fractal_name);
 int					state_destroy(t_state *state);
+void 				state_update_palette(t_state *state);
 
 /*
 ** render.c
@@ -146,5 +154,13 @@ int					burningship(t_state *state, t_complex z);
 */
 
 void				h_offset_to_complex(t_state *state, t_complex *z, int offset);
+
+/*
+** color.c
+*/
+
+t_color_hsl			color_rgb_to_hsl(t_color color_rgb);
+t_color				color_hsl_to_rgb(t_color_hsl color_hsl);
+
 
 #endif

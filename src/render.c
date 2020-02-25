@@ -6,7 +6,7 @@
 /*   By: cacharle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 09:54:59 by cacharle          #+#    #+#             */
-/*   Updated: 2020/02/25 08:42:34 by cacharle         ###   ########.fr       */
+/*   Updated: 2020/02/25 15:30:07 by cacharle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static void	st_render_fractal(t_state *state)
 	t_color	color;
 	t_complex	z;
 	/* pthread_t	threads[WINDOW_HEIGHT */
+	int tmp;
 
 	color.hexcode = 0xffffff;
 	offset = 0;
@@ -36,7 +37,13 @@ static void	st_render_fractal(t_state *state)
 		{
 			z.r = ((double)j / (double)WINDOW_WIDTH)  * state->plane.r - (state->plane.r / 2.0) + state->center.r;
 			z.i = ((double)i / (double)WINDOW_HEIGHT) * state->plane.i - (state->plane.i / 2.0) + state->center.i;
-			((t_color*)state->window.data)[offset] = state->palette[(int)(((double)state->func(state, z) / (double)state->iterations) * (double)PALETTE_SIZE) % PALETTE_SIZE];
+			tmp = state->func(state, z);
+			/* if (tmp > state->iterations) */
+			/* 	((t_color*)state->window.data)[offset].hexcode = 0x000000; */
+			/* else */
+	/* for (int i = 0; i < state->iterations; i++) */
+		/* printf("%d %d %d\n", state->palette[tmp].rgb.r, state->palette[tmp].rgb.g, state->palette[tmp].rgb.b); */
+				((t_color*)state->window.data)[offset] = state->palette[tmp];
 			offset++;
 		}
 	}
