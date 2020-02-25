@@ -6,16 +6,11 @@
 /*   By: cacharle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 09:58:01 by cacharle          #+#    #+#             */
-/*   Updated: 2020/02/25 15:34:51 by cacharle         ###   ########.fr       */
+/*   Updated: 2020/02/25 15:57:01 by cacharle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-
-#define PALETTE_START 0x000022
-#define PALETTE_END 0xd62f2f
-/* #define PALETTE_START 0x000000 */
-/* #define PALETTE_END 0xffffff */
 
 void state_update_palette(t_state *state)
 {
@@ -37,8 +32,6 @@ void state_update_palette(t_state *state)
 		state->palette[i] = color_hsl_to_rgb(hsl);
 	}
 	state->palette[i].hexcode = 0x0;
-	/* for (int i = 0; i < state->iterations; i++) */
-	/* 	printf("%d %d %d\n", state->palette[i].rgb.r, state->palette[i].rgb.g, state->palette[i].rgb.b); */
 }
 
 static int	st_state_dispatch_func(t_state *state, char *fractal_name)

@@ -6,7 +6,7 @@
 /*   By: cacharle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 09:28:16 by cacharle          #+#    #+#             */
-/*   Updated: 2020/02/25 15:29:33 by cacharle         ###   ########.fr       */
+/*   Updated: 2020/02/25 16:21:56 by cacharle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,15 @@
 # include <stdbool.h>
 # include <fcntl.h>
 # include <math.h>
+# include <pthread.h>
+
 # include "mlx.h"
 # include "libft.h"
 # include "libft_math.h"
 
 # define WINDOW_TITLE "fractol"
 
-# define FRACTOL_RESOLUTION_LOW
+# define FRACTOL_RESOLUTION_MEDIUM
 
 # ifdef FRACTOL_RESOLUTION_HIGH
 #  define WINDOW_WIDTH 1600
@@ -45,6 +47,12 @@
 # define MLXK_DOWN 125
 # define MLXK_LEFT 123
 # define MLXK_RIGHT 124
+# define MLXK_H 4
+# define MLXK_J 38
+# define MLXK_K 40
+# define MLXK_L 37
+# define MLXK_D 2
+# define MLXK_F 3
 # define MLXK_PLUS 24
 # define MLXK_MINUS 27
 
@@ -54,7 +62,7 @@
 # define MLX_LITTLE_ENDIAN 0
 # define MLX_BIG_ENDIAN 1
 
-# define PALETTE_SIZE 1024
+# define ZOOM_SPEED 1.2
 
 typedef union
 {
@@ -109,12 +117,14 @@ typedef struct		s_state
 	t_complex		plane;
 	t_complex		c;
 	int				iterations;
+	int				offsets[WINDOW_HEIGHT];
 }					t_state;
 
 typedef struct
 {
 	t_state			*state;
 	int				offset;
+	t_complex		z;
 }					t_render_routine_arg;
 
 /*
@@ -153,7 +163,8 @@ int					burningship(t_state *state, t_complex z);
 ** helper.c
 */
 
-void				h_offset_to_complex(t_state *state, t_complex *z, int offset);
+void				h_zoom_in(t_state *state);
+void				h_zoom_out(t_state *state);
 
 /*
 ** color.c

@@ -6,7 +6,7 @@
 #    By: cacharle <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/24 09:19:49 by cacharle          #+#    #+#              #
-#    Updated: 2020/02/25 15:11:09 by cacharle         ###   ########.fr        #
+#    Updated: 2020/02/25 16:00:56 by cacharle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ CCFLAGS = -I$(LIBFT_DIR)/include -I$(MINILIBX_DIR) -I$(INCLUDE_DIR) \
 		  -Wall -Wextra #-Werror
 LDFLAGS = -L$(LIBFT_DIR) -lft \
 		  -L$(MINILIBX_DIR) -lmlx \
-		  -framework OpenGL -framework AppKit -lm
+		  -framework OpenGL -framework AppKit -lm -lpthread
 
 NAME = fractol
 SRC_FILES = main.c \

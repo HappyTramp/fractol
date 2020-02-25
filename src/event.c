@@ -6,7 +6,7 @@
 /*   By: cacharle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 09:52:35 by cacharle          #+#    #+#             */
-/*   Updated: 2020/02/25 15:24:31 by cacharle         ###   ########.fr       */
+/*   Updated: 2020/02/25 16:20:49 by cacharle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,16 @@ int	event_quit(t_state *state)
 
 int	event_keydown(int key, t_state *state)
 {
-	/* printf("%d\n", key); */
+	printf("%d\n", key);
 	if (key == MLXK_ESC)
 		state->running = false;
-	else if (key == MLXK_UP)
+	else if (key == MLXK_UP || key == MLXK_K)
 		state->center.i -= state->plane.i * MOVE_SPEED;
-	else if (key == MLXK_DOWN)
+	else if (key == MLXK_DOWN || key == MLXK_J)
 		state->center.i += state->plane.i * MOVE_SPEED;
-	else if (key == MLXK_LEFT)
+	else if (key == MLXK_LEFT || key == MLXK_H)
 		state->center.r -= state->plane.r * MOVE_SPEED;
-	else if (key == MLXK_RIGHT)
+	else if (key == MLXK_RIGHT || key == MLXK_L)
 		state->center.r += state->plane.r * MOVE_SPEED;
 	else if (key == MLXK_PLUS)
 	{
@@ -46,6 +46,10 @@ int	event_keydown(int key, t_state *state)
 			state->iterations = 1;
 		state_update_palette(state);
 	}
+	else if (key == MLXK_F)
+		h_zoom_in(state);
+	else if (key == MLXK_D)
+		h_zoom_out(state);
 	else
 		return (0);
 	state->updated = false;
@@ -59,16 +63,14 @@ int	event_mouse(int button, int x, int y, t_state *state)
 
 	if (button == MLX_MOUSE_SCROLL_UP)
 	{
-		state->plane.r /= ZOOM_SPEED;
-		state->plane.i /= ZOOM_SPEED;
+		h_zoom_in(state);
 		/* state->center.r += MOVE_SPEED * (double)(x - WINDOW_WIDTH / 2) / WINDOW_WIDTH; */
 		/* state->center.i += MOVE_SPEED * (double)(y - WINDOW_HEIGHT / 2) / WINDOW_HEIGHT; */
 
 	}
 	else if (button == MLX_MOUSE_SCROLL_DOWN)
 	{
-		state->plane.r *= ZOOM_SPEED;
-		state->plane.i *= ZOOM_SPEED;
+		h_zoom_out(state);
 		/* state->center.r -= MOVE_SPEED * (double)(x - WINDOW_WIDTH / 2) / WINDOW_WIDTH; */
 		/* state->center.i -= MOVE_SPEED * (double)(y - WINDOW_HEIGHT / 2) / WINDOW_HEIGHT; */
 	}

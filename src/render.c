@@ -6,47 +6,54 @@
 /*   By: cacharle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 09:54:59 by cacharle          #+#    #+#             */
-/*   Updated: 2020/02/25 15:30:07 by cacharle         ###   ########.fr       */
+/*   Updated: 2020/02/25 16:13:40 by cacharle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-/* static void	*st_render_routine(t_state *state) */
-/* { */
-/* 	return (NULL); */
-/* } */
+static void	*st_render_routine(void *void_arg)
+{
+	int						j;
+	t_complex				z;
+	t_state					*state;
+	int						offset;
+	t_render_routine_arg	*arg;
+
+	arg = void_arg;
+	state = arg->state;
+	z = arg->z;
+	offset = arg->offset;
+	j = -1;
+	while (++j < WINDOW_WIDTH)
+	{
+		z.r = ((double)j / (double)WINDOW_WIDTH)  * state->plane.r - (state->plane.r / 2.0) + state->center.r;
+		((t_color*)state->window.data)[offset] = state->palette[state->func(state, z)];
+		offset++;
+	}
+	return (NULL);
+}
 
 static void	st_render_fractal(t_state *state)
 {
-	int	offset;
-	int	i;
-	int	j;
-	t_color	color;
-	t_complex	z;
-	/* pthread_t	threads[WINDOW_HEIGHT */
-	int tmp;
+	int						i;
+	pthread_t				threads[WINDOW_HEIGHT];
+	t_render_routine_arg	routine_args[WINDOW_HEIGHT];
 
-	color.hexcode = 0xffffff;
-	offset = 0;
 	i = -1;
 	while (++i < WINDOW_HEIGHT)
 	{
-		j = -1;
-		while (++j < WINDOW_WIDTH)
+		routine_args[i].state = state;
+		routine_args[i].offset = i * WINDOW_WIDTH;
+		routine_args[i].z.i = ((double)i / (double)WINDOW_HEIGHT) * state->plane.i - (state->plane.i / 2.0) + state->center.i;
+		if (pthread_create(threads + i, NULL, st_render_routine, routine_args + i) < 0)
 		{
-			z.r = ((double)j / (double)WINDOW_WIDTH)  * state->plane.r - (state->plane.r / 2.0) + state->center.r;
-			z.i = ((double)i / (double)WINDOW_HEIGHT) * state->plane.i - (state->plane.i / 2.0) + state->center.i;
-			tmp = state->func(state, z);
-			/* if (tmp > state->iterations) */
-			/* 	((t_color*)state->window.data)[offset].hexcode = 0x000000; */
-			/* else */
-	/* for (int i = 0; i < state->iterations; i++) */
-		/* printf("%d %d %d\n", state->palette[tmp].rgb.r, state->palette[tmp].rgb.g, state->palette[tmp].rgb.b); */
-				((t_color*)state->window.data)[offset] = state->palette[tmp];
-			offset++;
+			state->running = false;
+			break;
 		}
 	}
+	while (i-- > 0)
+		pthread_join(threads[i], NULL);
 }
 
 int			render_update(t_state *state)
