@@ -6,7 +6,7 @@
 /*   By: cacharle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 09:58:01 by cacharle          #+#    #+#             */
-/*   Updated: 2020/02/25 17:31:49 by cacharle         ###   ########.fr       */
+/*   Updated: 2020/02/25 18:28:02 by cacharle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,29 @@ void state_update_palette(t_state *state)
 	while (++i < state->iterations)
 	{
 		hsl.h = (int)(255.0 * ((double)i / (double)state->iterations));
-		hsl.s = 100;
+		hsl.s = 150;
 		hsl.l = 127;
 		state->palette[i] = color_hsl_to_rgb(hsl);
 	}
 	state->palette[i].hexcode = 0x111111;
+}
+
+void		state_shift_palette(t_state *state)
+{
+	int			i;
+	t_color_hsl	hsl;
+	int			shift_size;
+
+	/* printf("yo\n"); */
+	i = -1;
+	shift_size = 255 / state->iterations;
+	while (++i < state->iterations)
+	{
+		hsl = color_rgb_to_hsl(state->palette[i]);
+		hsl.h += shift_size;
+		hsl.h %= 256;
+		state->palette[i] = color_hsl_to_rgb(hsl);
+	}
 }
 
 static int	st_state_dispatch_func(t_state *state, char *fractal_name)

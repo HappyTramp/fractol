@@ -6,7 +6,7 @@
 /*   By: cacharle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 09:52:35 by cacharle          #+#    #+#             */
-/*   Updated: 2020/02/25 17:04:38 by cacharle         ###   ########.fr       */
+/*   Updated: 2020/02/25 18:08:23 by cacharle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ int	event_keydown(int key, t_state *state)
 		h_zoom_in(state);
 	else if (key == MLXK_D)
 		h_zoom_out(state);
+	else if (key == MLXK_S)
+		state_shift_palette(state);
 	else
 		return (0);
 	state->updated = false;

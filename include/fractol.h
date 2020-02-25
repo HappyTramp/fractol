@@ -6,7 +6,7 @@
 /*   By: cacharle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 09:28:16 by cacharle          #+#    #+#             */
-/*   Updated: 2020/02/25 16:21:56 by cacharle         ###   ########.fr       */
+/*   Updated: 2020/02/25 18:07:42 by cacharle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@
 # define MLXK_L 37
 # define MLXK_D 2
 # define MLXK_F 3
+# define MLXK_S 1
 # define MLXK_PLUS 24
 # define MLXK_MINUS 27
 
@@ -134,6 +135,7 @@ typedef struct
 int					state_init(t_state *state, char *fractal_name);
 int					state_destroy(t_state *state);
 void 				state_update_palette(t_state *state);
+void				state_shift_palette(t_state *state);
 
 /*
 ** render.c
