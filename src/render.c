@@ -6,11 +6,44 @@
 /*   By: cacharle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 09:54:59 by cacharle          #+#    #+#             */
-/*   Updated: 2020/02/25 16:13:40 by cacharle         ###   ########.fr       */
+/*   Updated: 2020/02/25 17:28:08 by cacharle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+
+#define SUPERSAMPLE_SIZE 3
+
+static t_color	st_take_sample(t_state *state, t_complex z)
+{
+	int						u;
+	int						v;
+	t_complex				sz;
+	t_color					color;
+	t_color					tmp;
+
+	color.hexcode = 0x0;
+	u = -1;
+	while (++u < SUPERSAMPLE_SIZE)
+	{
+		v = -1;
+		while (++v < SUPERSAMPLE_SIZE)
+		{
+			sz.r = z.r + (double)v / 3.0;
+			sz.i = z.i + (double)u / 3.0;
+			tmp = state->palette[state->func(state, sz)];
+			color.rgb.r += tmp.rgb.r;
+			color.rgb.g += tmp.rgb.g;
+			color.rgb.b += tmp.rgb.b;
+		}
+	}
+
+	color.rgb.r /= 9;
+	color.rgb.g /= 9;
+	color.rgb.b /= 9;
+
+	return (color);
+}
 
 static void	*st_render_routine(void *void_arg)
 {
@@ -28,7 +61,7 @@ static void	*st_render_routine(void *void_arg)
 	while (++j < WINDOW_WIDTH)
 	{
 		z.r = ((double)j / (double)WINDOW_WIDTH)  * state->plane.r - (state->plane.r / 2.0) + state->center.r;
-		((t_color*)state->window.data)[offset] = state->palette[state->func(state, z)];
+		((t_color*)state->window.data)[offset] = state->palette[state->func(state, z)];//st_take_sample(state, z);
 		offset++;
 	}
 	return (NULL);

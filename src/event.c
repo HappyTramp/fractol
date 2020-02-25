@@ -6,14 +6,13 @@
 /*   By: cacharle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 09:52:35 by cacharle          #+#    #+#             */
-/*   Updated: 2020/02/25 16:20:49 by cacharle         ###   ########.fr       */
+/*   Updated: 2020/02/25 17:04:38 by cacharle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
 #define MOVE_SPEED 0.1
-#define ZOOM_SPEED 1.2
 
 int	event_quit(t_state *state)
 {
