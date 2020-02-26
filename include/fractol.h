@@ -6,7 +6,7 @@
 /*   By: cacharle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 09:28:16 by cacharle          #+#    #+#             */
-/*   Updated: 2020/02/26 13:23:33 by cacharle         ###   ########.fr       */
+/*   Updated: 2020/02/26 18:15:38 by cacharle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 
 # define WINDOW_TITLE "fractol"
 
-# define FRACTOL_RESOLUTION_MEDIUM
+# define FRACTOL_RESOLUTION_HIGH
 
 # ifdef FRACTOL_RESOLUTION_HIGH
 #  define WINDOW_WIDTH 1600
@@ -56,6 +56,7 @@
 # define MLXK_S 1
 # define MLXK_E 14
 # define MLXK_R 15
+# define MLXK_C 8
 # define MLXK_PLUS 24
 # define MLXK_MINUS 27
 

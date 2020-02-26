@@ -6,7 +6,7 @@
 /*   By: cacharle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 09:54:59 by cacharle          #+#    #+#             */
-/*   Updated: 2020/02/26 13:29:04 by cacharle         ###   ########.fr       */
+/*   Updated: 2020/02/26 18:21:33 by cacharle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,15 @@ int			render_update(t_state *state)
 		return (0);
 	st_render_fractal(state);
 	mlx_put_image_to_window(state->mlx_ptr, state->window_ptr, state->window.id, 0, 0);
+	char *iterations_str = ft_itoa(state->iterations);
+	char *samples_str = ft_itoa((int)state->samples);
+	char center_buf[1024];
+	sprintf(center_buf, "%f + %fi", state->center.r, state->center.i);  // no
+	mlx_string_put (state->mlx_ptr, state->window_ptr, 10, 20, 0x000000, iterations_str);
+	mlx_string_put (state->mlx_ptr, state->window_ptr, 10, 30, 0x000000, samples_str);
+	mlx_string_put (state->mlx_ptr, state->window_ptr, 10, 40, 0x000000, center_buf);
+	free(iterations_str);
+	free(samples_str);
 	state->updated = true;
 	return (0);
 }

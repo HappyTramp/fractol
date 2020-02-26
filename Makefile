@@ -6,7 +6,7 @@
 #    By: cacharle <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/24 09:19:49 by cacharle          #+#    #+#              #
-#    Updated: 2020/02/26 11:17:06 by cacharle         ###   ########.fr        #
+#    Updated: 2020/02/26 18:04:14 by cacharle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRC_FILES = main.c \
 			state.c \
 			helper.c \
 			color.c \
+			capture.c \
 			fractals/mandelbrot.c \
 			fractals/julia.c \
 			fractals/tricorn.c \
