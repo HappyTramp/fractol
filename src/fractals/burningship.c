@@ -6,14 +6,14 @@
 /*   By: cacharle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 16:15:49 by cacharle          #+#    #+#             */
-/*   Updated: 2020/02/25 07:33:53 by cacharle         ###   ########.fr       */
+/*   Updated: 2020/02/26 13:20:36 by cacharle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
 #define BURNING_SHIP_MAX_ITERATION 20
-#define BURNING_SHIP_ESCAPE_RADIUS_SQUARED 100
+#define BURNING_SHIP_ESCAPE_RADIUS_SQUARED 4
 
 int	burningship(t_state *state, t_complex z)
 {

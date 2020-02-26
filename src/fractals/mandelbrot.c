@@ -6,16 +6,16 @@
 /*   By: cacharle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 11:07:41 by cacharle          #+#    #+#             */
-/*   Updated: 2020/02/25 07:33:35 by cacharle         ###   ########.fr       */
+/*   Updated: 2020/02/26 13:12:55 by cacharle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
 #define MANDEL_MAX_ITERATION 20
-#define MANDEL_ESCAPE_RADIUS_SQUARED 100
+#define MANDEL_ESCAPE_RADIUS_SQUARED 4
 
-int	mandelbrot(t_state *state, t_complex z)
+int	mandelbrot(t_state *state, t_complex c)
 {
 	int		n;
 	double	zr;
@@ -24,8 +24,8 @@ int	mandelbrot(t_state *state, t_complex z)
 	double	zi_square;
 	
 	(void)state;
-	zr = z.r;
-	zi = z.i;
+	zr = c.r;
+	zi = c.i;
 	n = -1;
 	while (++n < state->iterations)
 	{
@@ -35,8 +35,8 @@ int	mandelbrot(t_state *state, t_complex z)
 			break;
 		zi = 2.0 * zr * zi;
 		zr = zr_square - zi_square;
-		zi += z.i;
-		zr += z.r;
+		zi += c.i;
+		zr += c.r;
 	}
 	return (n);
 }

@@ -6,7 +6,7 @@
 /*   By: cacharle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 09:28:16 by cacharle          #+#    #+#             */
-/*   Updated: 2020/02/25 18:07:42 by cacharle         ###   ########.fr       */
+/*   Updated: 2020/02/26 13:23:33 by cacharle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@
 # define MLXK_D 2
 # define MLXK_F 3
 # define MLXK_S 1
+# define MLXK_E 14
+# define MLXK_R 15
 # define MLXK_PLUS 24
 # define MLXK_MINUS 27
 
@@ -119,6 +121,7 @@ typedef struct		s_state
 	t_complex		c;
 	int				iterations;
 	int				offsets[WINDOW_HEIGHT];
+	double			samples;
 }					t_state;
 
 typedef struct
@@ -126,6 +129,7 @@ typedef struct
 	t_state			*state;
 	int				offset;
 	t_complex		z;
+	double			step_i;
 }					t_render_routine_arg;
 
 /*

@@ -6,7 +6,7 @@
 /*   By: cacharle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 09:52:35 by cacharle          #+#    #+#             */
-/*   Updated: 2020/02/25 18:08:23 by cacharle         ###   ########.fr       */
+/*   Updated: 2020/02/26 13:24:24 by cacharle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	event_quit(t_state *state)
 
 int	event_keydown(int key, t_state *state)
 {
-	printf("%d\n", key);
+	/* printf("%d\n", key); */
 	if (key == MLXK_ESC)
 		state->running = false;
 	else if (key == MLXK_UP || key == MLXK_K)
@@ -51,6 +51,14 @@ int	event_keydown(int key, t_state *state)
 		h_zoom_out(state);
 	else if (key == MLXK_S)
 		state_shift_palette(state);
+	else if (key == MLXK_R)
+		state->samples += 1.0;
+	else if (key == MLXK_E)
+	{
+		state->samples -= 1.0;
+		if (state->samples < 1.0)
+			state->samples = 1.0;
+	}
 	else
 		return (0);
 	state->updated = false;

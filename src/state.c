@@ -6,7 +6,7 @@
 /*   By: cacharle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 09:58:01 by cacharle          #+#    #+#             */
-/*   Updated: 2020/02/25 18:28:02 by cacharle         ###   ########.fr       */
+/*   Updated: 2020/02/26 13:23:18 by cacharle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,9 @@ int	state_init(t_state *state, char *fractal_name)
 	state->center.i = 0.0;
 	state->plane.r = 4.0;
 	state->plane.i = 4.0;
-	state->iterations = 50;
+	state->iterations = 10;
 	state->palette = NULL;
+	state->samples = 1.0;
 	state_update_palette(state);
 	state->updated = false;
 	return (0);
