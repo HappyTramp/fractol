@@ -6,36 +6,34 @@
 /*   By: cacharle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 15:17:38 by cacharle          #+#    #+#             */
-/*   Updated: 2020/02/25 07:33:43 by cacharle         ###   ########.fr       */
+/*   Updated: 2020/02/27 13:44:21 by cacharle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-#define JULIA_MAX_ITERATION 20
-#define JULIA_ESCAPE_RADIUS_SQUARED 100
+#define JULIA_ESCAPE_RADIUS_SQUARED 4.0
 
-int	julia(t_state *state, t_complex z)
+int	julia(t_state *state, t_complex origin_c)
 {
-	int		n;
-	double	zr;
-	double	zi;
-	double	zr_square;
-	double	zi_square;
+	int			n;
+	t_complex	z;
+	t_complex	z_square;
+	t_complex	c;
 	
-	zr = z.r;
-	zi = z.i;
+	z = origin_c;
+	c = state->c;
+	z_square.r = 0.0;
+	z_square.i = 0.0;
 	n = -1;
-	while (++n < state->iterations)
+	while (z_square.r + z_square.i <= JULIA_ESCAPE_RADIUS_SQUARED && ++n < state->iterations)
 	{
-		zi_square = zi * zi;
-		zr_square = zr * zr;
-		if (zr_square + zi_square > JULIA_ESCAPE_RADIUS_SQUARED)
-			break;
-		zi = 2.0 * zr * zi;
-		zr = zr_square - zi_square;
-		zi += state->c.i;
-		zr += state->c.r;
+		z_square.i = z.i * z.i;
+		z_square.r = z.r * z.r;
+		z.i = 2.0 * z.r * z.i;
+		z.r = z_square.r - z_square.i;
+		z.i += c.i;
+		z.r += c.r;
 	}
 	return (n);
 }

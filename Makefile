@@ -6,7 +6,7 @@
 #    By: cacharle <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/24 09:19:49 by cacharle          #+#    #+#              #
-#    Updated: 2020/02/26 18:04:14 by cacharle         ###   ########.fr        #
+#    Updated: 2020/02/27 13:11:14 by cacharle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ OBJ_DIRS = $(shell find $(SRC_DIR) -type d | sed 's/src/obj/')
 
 CC = gcc
 CCFLAGS = -I$(LIBFT_DIR)/include -I$(MINILIBX_DIR) -I$(INCLUDE_DIR) \
-		  -O3 -Wall -Wextra #-Werror
+		  -Ofast -Wall -Wextra #-Werror
 LDFLAGS = -L$(LIBFT_DIR) -lft \
 		  -L$(MINILIBX_DIR) -lmlx \
 		  -framework OpenGL -framework AppKit -lm -lpthread

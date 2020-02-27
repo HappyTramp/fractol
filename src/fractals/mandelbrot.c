@@ -6,37 +6,33 @@
 /*   By: cacharle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 11:07:41 by cacharle          #+#    #+#             */
-/*   Updated: 2020/02/26 13:12:55 by cacharle         ###   ########.fr       */
+/*   Updated: 2020/02/27 14:18:16 by cacharle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-#define MANDEL_MAX_ITERATION 20
-#define MANDEL_ESCAPE_RADIUS_SQUARED 4
+#define MANDEL_ESCAPE_RADIUS_SQUARED 4.0
 
 int	mandelbrot(t_state *state, t_complex c)
 {
-	int		n;
-	double	zr;
-	double	zi;
-	double	zr_square;
-	double	zi_square;
+	int			n;
+	t_complex	z;
+	t_complex	z_square;
 	
 	(void)state;
-	zr = c.r;
-	zi = c.i;
+	z = c;
 	n = -1;
-	while (++n < state->iterations)
+	z_square.r = 0.0;
+	z_square.i = 0.0;
+	while (z_square.r + z_square.i <= MANDEL_ESCAPE_RADIUS_SQUARED && ++n < state->iterations)
 	{
-		zi_square = zi * zi;
-		zr_square = zr * zr;
-		if (zr_square + zi_square > MANDEL_ESCAPE_RADIUS_SQUARED)
-			break;
-		zi = 2.0 * zr * zi;
-		zr = zr_square - zi_square;
-		zi += c.i;
-		zr += c.r;
+		z_square.i = z.i * z.i;
+		z_square.r = z.r * z.r;
+		z.i = 2.0 * z.r * z.i;
+		z.r = z_square.r - z_square.i;
+		z.i += c.i;
+		z.r += c.r;
 	}
 	return (n);
 }

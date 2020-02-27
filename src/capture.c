@@ -6,7 +6,7 @@
 /*   By: cacharle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 13:15:11 by cacharle          #+#    #+#             */
-/*   Updated: 2020/02/26 18:13:10 by cacharle         ###   ########.fr       */
+/*   Updated: 2020/02/27 14:46:01 by cacharle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,17 +57,19 @@ static void	bmp_write_pixels(int fd, t_image *image, uint8_t *bmp_data)
 		j = -1;
 		while (++j < image->width)
 		{
-			bmp_data[3 * j + 0] = image->data[4 * (i * image->width + j) + 0];
-			bmp_data[3 * j + 1] = image->data[4 * (i * image->width + j) + 1];
-			bmp_data[3 * j + 2] = image->data[4 * (i * image->width + j) + 2];
+			bmp_data[3 * j + 0] = image->data[4 * (i * image->width + j)].rgb.r;
+			bmp_data[3 * j + 1] = image->data[4 * (i * image->width + j)].rgb.g;
+			bmp_data[3 * j + 2] = image->data[4 * (i * image->width + j)].rgb.b;
 		}
 		write(fd, bmp_data, image->width * 3);
 		write(fd, padding, padding_size);
 	}
 }
 
-static void	bmp_fill_header(t_image *image, uint8_t file_header[FILE_HEADER_SIZE],
-						uint8_t info_header[INFO_HEADER_SIZE])
+static void	bmp_fill_header(
+	t_image *image,
+	uint8_t file_header[FILE_HEADER_SIZE],
+	uint8_t info_header[INFO_HEADER_SIZE])
 {
 	int	file_size;
 
@@ -95,7 +97,6 @@ static void	bmp_fill_header(t_image *image, uint8_t file_header[FILE_HEADER_SIZE
 	info_header[14] = (uint8_t)(IMG_DEPTH * 8);
 }
 
-
 static bool	bmp_write(t_image *image, uint8_t file_header[FILE_HEADER_SIZE],
 						uint8_t info_header[INFO_HEADER_SIZE], char *filename)
 {
@@ -117,17 +118,11 @@ static bool	bmp_write(t_image *image, uint8_t file_header[FILE_HEADER_SIZE],
 	return (true);
 }
 
-int		capture(t_state *state, char *filename)
+int			capture(t_state *state, char *filename)
 {
 	uint8_t	file_header[FILE_HEADER_SIZE];
 	uint8_t	info_header[INFO_HEADER_SIZE];
 
 	bmp_fill_header(&state->window, file_header, info_header);
-	if (!bmp_write(&state->window, file_header, info_header, filename))
-	{
-		/* state_destroy(state); */
-		return (1);
-	}
-	/* state_destroy(state); */
-	return (0);
+	return (bmp_write(&state->window, file_header, info_header, filename));
 }

@@ -6,7 +6,7 @@
 /*   By: cacharle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 09:28:16 by cacharle          #+#    #+#             */
-/*   Updated: 2020/02/26 18:15:38 by cacharle         ###   ########.fr       */
+/*   Updated: 2020/02/27 13:39:08 by cacharle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,24 @@
 
 # define WINDOW_TITLE "fractol"
 
-# define FRACTOL_RESOLUTION_HIGH
+# define FRACTOL_RESOLUTION_LOW
 
 # ifdef FRACTOL_RESOLUTION_HIGH
 #  define WINDOW_WIDTH 1600
 #  define WINDOW_HEIGHT 1200
+#  define FWINDOW_WIDTH 1600.0
+#  define FWINDOW_HEIGHT 1200.0
 # elif defined(FRACTOL_RESOLUTION_MEDIUM)
 #  define WINDOW_WIDTH 1024
 #  define WINDOW_HEIGHT 768
+#  define FWINDOW_WIDTH 1024.0
+#  define FWINDOW_HEIGHT 768.0
 # else
 #  define FRACTOL_RESOLUTION_LOW
 #  define WINDOW_WIDTH 800
 #  define WINDOW_HEIGHT 600
+#  define FWINDOW_WIDTH 800.0
+#  define FWINDOW_HEIGHT 600.0
 # endif
 // # define WINDOW_WIDTH_DOUBLE 640.0
 // # define WINDOW_HEIGHT_DOUBLE 480.0
@@ -92,7 +98,7 @@ typedef struct
 	int				width;
 	int				height;
 	void			*id;
-	char			*data;
+	t_color			*data;
 	int				depth;
 	int				size_line;
 	int				endian;
@@ -110,16 +116,16 @@ typedef int			(*t_func_fractal)(struct s_state *state, t_complex z);
 
 typedef struct		s_state
 {
+	t_func_fractal	func;
+	t_color			*palette;
+	t_image			window;
+	t_complex		c;
 	bool			running;
 	bool			updated;
 	void			*mlx_ptr;
 	void			*window_ptr;
-	t_image			window;
-	t_color			*palette;
-	t_func_fractal	func;
 	t_complex		center;
 	t_complex		plane;
-	t_complex		c;
 	int				iterations;
 	int				offsets[WINDOW_HEIGHT];
 	double			samples;
@@ -127,10 +133,10 @@ typedef struct		s_state
 
 typedef struct
 {
-	t_state			*state;
-	int				offset;
-	t_complex		z;
+	double			z_i;
 	double			step_i;
+	int				offset;
+	t_state			*state;
 }					t_render_routine_arg;
 
 /*
@@ -161,10 +167,10 @@ int					event_mouse_motion(int x, int y, t_state *state);
 ** fractals/
 */
 
-int					mandelbrot(t_state *state, t_complex z);
-int					julia(t_state *state, t_complex z);
-int					tricorn(t_state *state, t_complex z);
-int					burningship(t_state *state, t_complex z);
+int					mandelbrot(t_state *state, t_complex c);
+int					julia(t_state *state, t_complex c);
+int					tricorn(t_state *state, t_complex c);
+int					burningship(t_state *state, t_complex c);
 
 /*
 ** helper.c
@@ -180,5 +186,10 @@ void				h_zoom_out(t_state *state);
 t_color_hsl			color_rgb_to_hsl(t_color color_rgb);
 t_color				color_hsl_to_rgb(t_color_hsl color_hsl);
 
+/*
+** capture.c
+*/
+
+int		capture(t_state *state, char *filename);
 
 #endif
