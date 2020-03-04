@@ -20,7 +20,7 @@ int	tricorn(t_state *state, t_complex c)
 	t_complex	z;
 	t_complex	z_square;
 	double		tmp;
-	
+
 	(void)state;
 	z = c;
 	n = -1;
@@ -30,7 +30,7 @@ int	tricorn(t_state *state, t_complex c)
 		z_square.r = z.r * z.r;
 		if (z_square.r + z_square.i > TRICORN_ESCAPE_RADIUS_SQUARED)
 			break;
-		tmp = z_square.r - z_square.i + z.r;
+		tmp = z_square.r - z_square.i + c.r;
 		z.i = -2.0 * z.r * z.i + c.i;
 		z.r = tmp;
 	}

@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdbool.h>
+# include <stdint.h>
 # include <fcntl.h>
 # include <math.h>
 # include <pthread.h>
@@ -48,26 +49,27 @@
 // # define WINDOW_WIDTH_DOUBLE 640.0
 // # define WINDOW_HEIGHT_DOUBLE 480.0
 
-# define MLXK_ESC 53
-# define MLXK_UP 126
-# define MLXK_DOWN 125
-# define MLXK_LEFT 123
-# define MLXK_RIGHT 124
-# define MLXK_H 4
-# define MLXK_J 38
-# define MLXK_K 40
-# define MLXK_L 37
-# define MLXK_D 2
-# define MLXK_F 3
-# define MLXK_S 1
-# define MLXK_E 14
-# define MLXK_R 15
-# define MLXK_C 8
-# define MLXK_PLUS 24
-# define MLXK_MINUS 27
+# define MLXK_ESC 65307
+# define MLXK_UP 65289
+# define MLXK_DOWN 65362
+# define MLXK_LEFT 65364
+# define MLXK_RIGHT 65361
+# define MLXK_H 104
+# define MLXK_J 106
+# define MLXK_K 107
+# define MLXK_L 108
+# define MLXK_D 100
+# define MLXK_F 102
+# define MLXK_S 115
+# define MLXK_E 101
+# define MLXK_R 114
+# define MLXK_C 99
+# define MLXK_PLUS 61
+# define MLXK_MINUS 45
 
 # define MLX_MOUSE_SCROLL_UP 5
 # define MLX_MOUSE_SCROLL_DOWN 4
+# define MLX_MOUSE_LEFT 1
 
 # define MLX_LITTLE_ENDIAN 0
 # define MLX_BIG_ENDIAN 1

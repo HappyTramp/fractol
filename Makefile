@@ -27,7 +27,9 @@ CCFLAGS = -I$(LIBFT_DIR)/include -I$(MINILIBX_DIR) -I$(INCLUDE_DIR) \
 		  -Ofast -Wall -Wextra #-Werror
 LDFLAGS = -L$(LIBFT_DIR) -lft \
 		  -L$(MINILIBX_DIR) -lmlx \
-		  -framework OpenGL -framework AppKit -lm -lpthread
+		  -lm -lpthread \
+		  -lXext -lX11
+		  # -framework OpenGL -framework AppKit
 
 NAME = fractol
 SRC_FILES = main.c \
@@ -56,7 +58,7 @@ prebuild:
 $(NAME): $(OBJ)
 	$(CC) -o $@ $^ $(LDFLAGS)
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c 
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	$(CC) $(CCFLAGS) -c -o $@ $<
 
 clean: libft_clean minilibx_clean

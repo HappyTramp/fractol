@@ -69,9 +69,10 @@ int	event_keydown(int key, t_state *state)
 
 int	event_mouse(int button, int x, int y, t_state *state)
 {
-	(void)x;
-	(void)y;
+	/* (void)x; */
+	/* (void)y; */
 
+    /* printf("%d\n", button); */
 	if (button == MLX_MOUSE_SCROLL_UP)
 	{
 		h_zoom_in(state);
@@ -85,6 +86,13 @@ int	event_mouse(int button, int x, int y, t_state *state)
 		/* state->center.r -= MOVE_SPEED * (double)(x - WINDOW_WIDTH / 2) / WINDOW_WIDTH; */
 		/* state->center.i -= MOVE_SPEED * (double)(y - WINDOW_HEIGHT / 2) / WINDOW_HEIGHT; */
 	}
+    else if (button == MLX_MOUSE_LEFT)
+    {
+        printf("%d %d\n", x, y);
+        state->center.r = ((double)x / FWINDOW_WIDTH) * state->plane.r - state->plane.r / 2.0;
+        state->center.i = ((double)y / FWINDOW_HEIGHT) * state->plane.i - state->plane.i / 2.0;
+
+    }
 	else
 		return (0);
 	state->updated = false;

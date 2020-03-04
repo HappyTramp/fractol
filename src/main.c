@@ -22,7 +22,7 @@ int	main(int argc, char **argv)
 		return (0);
 	}
 	mlx_hook(state.window_ptr, 17, 0, event_quit, (void*)&state);
-	mlx_hook(state.window_ptr, 2, 2, event_keydown, (void*)&state);
+	mlx_key_hook(state.window_ptr, event_keydown, (void*)&state);
 	mlx_hook(state.window_ptr, 6, 64, event_mouse_motion, (void*)&state);
 	mlx_mouse_hook(state.window_ptr, event_mouse, (void*)&state);
 	mlx_loop_hook(state.mlx_ptr, render_update, (void*)&state);
